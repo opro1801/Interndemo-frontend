@@ -24,15 +24,7 @@ const TaskComp: React.FC<Props> = ({taskName, sequenceNumber, id, status, taskLi
 
   const editTask = async (newTaskName: string, newSequenceNumber: string) => {
     const data = await TaskRequest.EditTaskRequest(id, newTaskName, newSequenceNumber);
-      // setTaskList(taskList.filter(task => {
-      //   if(id === task.id) return task;
-      //   return {
-      //     taskName: newTaskName,
-      //     id: task.id,
-      //     sequenceNumber: newSequenceNumber,
-      //     status: task.status,
-      //   }
-      // }))
+      setIsEditing(false);
       setReload(!reload);
   };
 
@@ -61,18 +53,6 @@ const TaskComp: React.FC<Props> = ({taskName, sequenceNumber, id, status, taskLi
   const completeTask = async () => {
     const data = await TaskRequest.UpdateTaskRequest(id);
     if(data.status === TaskStatus.COMPLETE) {
-      // setTaskList(taskList.filter(task => {
-      //   return id !== task.id;
-      // }))
-      // setCompletedTaskList([
-      //   ...completedTaskList,
-      //   {
-      //     taskName: data.taskName,
-      //     id: data.id,
-      //     sequenceNumber: data.sequenceNumber,
-      //     status: TaskStatus.COMPLETE
-      //   }
-      // ])
       setReload(!reload);
     }
   }

@@ -18,9 +18,12 @@ export enum TaskStatus {
 }
 
 
+
 const ShowTask: React.FC<Props> = ({setTaskList, taskList, completedTaskList, setCompletedTaskList}) => {
     const [isShowTask, setIsShowTask] = useState(false);
     const [reload, setReload] = useState(false);
+    const [isShowCompletedTasks, setIsShowCompletedTasks] = useState(false);
+    const [isShowUnCompletedTasks, setIsShowUnCompletedTasks] = useState(false);
 
     const resetTask = async () => {
         Alert.alert(
@@ -68,11 +71,14 @@ const ShowTask: React.FC<Props> = ({setTaskList, taskList, completedTaskList, se
             {isShowTask &&
             <View>
                 <View>
-                    <Text>Uncompleted Tasks</Text>
+                    <TouchableOpacity style={styles.sectionButton} onPress={() => {setIsShowUnCompletedTasks(!isShowUnCompletedTasks)}}> 
+                        <Text> Uncompleted Tasks</Text>
+                    </TouchableOpacity>
                 </View>
+                {
+                isShowUnCompletedTasks &&
                 <FlatList
                     showsVerticalScrollIndicator={false}
-                    style={{maxHeight: '40%'}}
                     data={taskList}
                     keyExtractor={(item) => `${item.id}-${item.taskName}-${item.sequenceNumber}`}
                     renderItem={({ item }) => (
@@ -89,14 +95,19 @@ const ShowTask: React.FC<Props> = ({setTaskList, taskList, completedTaskList, se
                         />
                         )}
                 />
+                }
                 <View>
-                    <Text>Completed Tasks</Text>
+                    <TouchableOpacity style={styles.sectionButton} onPress={() => {setIsShowCompletedTasks(!isShowCompletedTasks)}}> 
+                        <Text> Completed Tasks</Text>
+                    </TouchableOpacity>
                 </View>
+                {
+                isShowCompletedTasks &&
                 <FlatList
                     showsVerticalScrollIndicator={false}
                     data={completedTaskList}
-                    style={{height: '40%'}}
                     keyExtractor={(item) => `${item.id}-${item.taskName}-${item.sequenceNumber}`}
+                    
                     renderItem={({ item }) => (
                         <TaskComp   taskName={item.taskName} 
                                     sequenceNumber={item.sequenceNumber} 
@@ -111,6 +122,7 @@ const ShowTask: React.FC<Props> = ({setTaskList, taskList, completedTaskList, se
                                     />
                         )}
                 />                
+                }
             </View>
             }
         </View>
@@ -120,6 +132,8 @@ const ShowTask: React.FC<Props> = ({setTaskList, taskList, completedTaskList, se
 const styles = StyleSheet.create({
     container: {
         margin: 10,
+        marginBottom: 30,
+        height: 600,
     },
     headButton: {
         borderRadius: 10,
@@ -136,6 +150,16 @@ const styles = StyleSheet.create({
     taskManipulation: {
         flexDirection: 'row',
         justifyContent: 'space-between',
+    },
+    sectionButton: {
+        width: 170,
+        justifyContent: 'center',
+        alignItems: 'center',
+        alignSelf: 'center',
+        margin: 5,
+        padding: 5,
+        borderRadius: 10,
+        backgroundColor: 'orange',
     }
 });
 

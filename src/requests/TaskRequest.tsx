@@ -1,7 +1,8 @@
 
 import axios from "axios";
 
-const baseUrl: string = 'http://192.168.137.209:3000/tasks/';
+const baseUrl: string = 'http://18.166.226.73/tasks/';
+// const baseUrl: string = 'http://192.168.137.209:3000/tasks/';
 // const baseUrl: string = 'http://192.168.137.1:3000/tasks/';
 // const baseUrl: string = 'http://10.89.250.137:3000/tasks/';
 
